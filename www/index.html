@@ -22,60 +22,66 @@
 
     </head>
     <body>
-	     <div class="app">
-	    <div>
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        <div class="app">
+            <div>
+                <!-- Optional JavaScript -->
+                <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+                <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 
-        <!--<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav  ">
-                    <a class="nav-item nav-link text-white" href="#"  data-toggle="modal" data-target="#myModal">adicionar</a>
-                    <a class="nav-item nav-link text-white" href="#"  id='buscarCard'>Listar</a>
+                <!--<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav  ">
+                            <a class="nav-item nav-link text-white" href="#"  data-toggle="modal" data-target="#myModal">adicionar</a>
+                            <a class="nav-item nav-link text-white" href="#"  id='buscarCard'>Listar</a>
+                        </div>
+                    </div>
+                </nav>-->
+
+
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-primary bg-faded">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                        <div class="navbar-nav">
+                            <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#myModal">Cadastrar</a>
+                            <a class="nav-item nav-link" href="#"  id='buscarCard'>Listar</a>
+
+                        </div>
+                    </div>
+                </nav>
+                <div class="container">
+                    <br>
+                    <div class="alert alert-success" id="loadingCard">
+                        <strong>Success!</strong> carregando  Cards...
+                    </div>
+                    
+                    
+<!--                     <div class="alert alert-success" id="CadastroCard">
+                        <strong>Success!</strong> Cads Cadastrado com Sucesso
+                    </div>
+                    
+                      <div class="alert alert-success" id="DeleteCard">
+                        <strong>Success!</strong> Cad Removido com sucesso
+                    </div>-->
+                    
+                    
+
+                   
+                    <div class="row" id="containercard">
+                    </div>
                 </div>
             </div>
-        </nav>-->
-		
-		
-		
-		<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">Navbar</a>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="#">Cadastrar</a>
-      <a class="nav-item nav-link" href="#">Listar</a>
-      <a class="nav-item nav-link disabled" href="#">Disabled</a>
-    </div>
-  </div>
-</nav>
-		
-		
-		
-		
-
-        <div class="container">
-            <br>
-            <br>
-            <div class="row" id="containercard">
-            </div>
-        </div>
-		</div>
-		<script type="text/javascript" src="cordova.js"></script>
-    <script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript">
-        app.initialize();
-    </script>
+            <script type="text/javascript" src="cordova.js"></script>
+            <script type="text/javascript" src="js/index.js"></script>
+            <script type="text/javascript">
+                app.initialize();
+            </script>
     </body>
 
-	
-	
-	
     <!-- Modal -->
     <div class="modal fade " id="myModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -122,7 +128,8 @@
 
 
         $('#buscarCard').click(function(){
-        listarCard();
+           location.reload();
+          listarCard();
         });
 
         function listarCard(){
@@ -133,7 +140,8 @@
         data:'',
         success:function(result){
         console.log(result);
-        //$('#containercard').();        
+        //$('#containercard').();  
+        $('#loadingCard').show();
         $.each(result.data,function(i,item){
 
         var  card ='  <div class="col-sm-4">';
@@ -156,10 +164,10 @@
         card +='     </div>';
         $('#containercard').append(card);
         });
-
+         $('#loadingCard').hide(600);
         },
         error:function(xrh,resp,text){
-        console.log('erro ao buscar cep');
+       
         }
         });
         }
@@ -168,7 +176,7 @@
 
 
         function cadastrarCard(){
-
+        alert('passei por aqui');
         var descricao = $('#descricao').val();
         var url_imagem = $('#url_imagem').val();
         $.ajax({
@@ -177,13 +185,15 @@
         dataType:'json',
         data:"descricao="+descricao+"&url_imagem="+url_imagem,
 
+        
+          
         success:function(result){ 
+        //$('#loadingCard').show();
         console.log(result.data);
-
-
         alert(result.data);
         location.reload();
-
+        $('#descricao').val();
+        $('#url_imagem').val();
         },
         error:function(xrh,resp,text){
 
@@ -222,8 +232,6 @@
         alert(resp.data);
         }
         });
-
-
 
         }
 
