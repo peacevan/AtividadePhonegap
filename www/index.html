@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>card beatfull Places</title>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+
+        <style>
+            .card-img-top{
+                height: 255px;
+
+            }
+            .card{ 
+                margin-top: 20px;
+            }
+
+        </style>
+
+    </head>
+    <body>
+	     <div class="app">
+	    <div>
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+        <!--<nav class="navbar navbar-expand-lg navbar-light bg-primary ">
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav  ">
+                    <a class="nav-item nav-link text-white" href="#"  data-toggle="modal" data-target="#myModal">adicionar</a>
+                    <a class="nav-item nav-link text-white" href="#"  id='buscarCard'>Listar</a>
+                </div>
+            </div>
+        </nav>-->
+		
+		
+		
+		<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Navbar</a>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="#">Cadastrar</a>
+      <a class="nav-item nav-link" href="#">Listar</a>
+      <a class="nav-item nav-link disabled" href="#">Disabled</a>
+    </div>
+  </div>
+</nav>
+		
+		
+		
+		
+
+        <div class="container">
+            <br>
+            <br>
+            <div class="row" id="containercard">
+            </div>
+        </div>
+		</div>
+		<script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+    <script type="text/javascript">
+        app.initialize();
+    </script>
+    </body>
+
+	
+	
+	
+    <!-- Modal -->
+    <div class="modal fade " id="myModal" tabindex="-1" role="dialog"   aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header primary">
+                    <h5 class="modal-title" id="exampleModalLabel">Novo Card</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <input id='url_imagem' placeholder="url da imagem" type="text" class="form-control">
+                    <input id="descricao"  placeholder="descrição do card" type="text"  class="form-control"> <br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger  form-control " data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary form-control" onclick='cadastrarCard()'>Adicionar</button>
+                </div>
+            </div>
+        </div>
+        <!-- http://andrecosta.info/cards/-->
+    </div>
+
+    <script>
+
+        $( document ).ready(
+        function() {
+        // Handler for .ready() called.
+        listarCard();
+
+        $(".remover").click(function(){
+
+        id=$(this).attr("id");
+        alert('aqui');
+        console.log(id);
+        //alert(this).attr("id"));
+        });
+
+
+        }
+        );
+
+
+
+        $('#buscarCard').click(function(){
+        listarCard();
+        });
+
+        function listarCard(){
+        $.ajax({
+        url:'http://andrecosta.info/cards/',
+        type:'GET',
+        dataType:'json',
+        data:'',
+        success:function(result){
+        console.log(result);
+        //$('#containercard').();        
+        $.each(result.data,function(i,item){
+
+        var  card ='  <div class="col-sm-4">';
+        card  +='  <div class="card" style="width: 20rem;margen-top:20px">';
+        card +='         <img class="card-img-top" width=”20%” height=”40%”  src='+item.url_imagem+' alt="Card image cap">';
+        card +='         <div class="card-body ">';
+        card +='         <p class="card-text">'+item.descricao+'</p>';
+        card +='         </div>';
+        card +='         <div class="card-footer text-muted">';
+        card +='           <div class="row">';
+        card +='             <div class="col-sm-6">';
+        card +='               <a href="#" class="btn btn-danger form-control" onclick="removerCard('+item.id+')">remover</a>';
+        card +='             </div>';
+        card +='             <div class="col-sm-6">';
+        card +='               <a href="#" class="btn btn-primary form-control"   id="btlike_'+item.id+'"  onclick="like('+item.id+')"><i class="icon-print icon-white"></i>Likes('+ item.likes+') </a>';
+        card +='             </div>';
+        card +='            </div>';
+        card +='         </div>';
+        card +='       </div>';
+        card +='     </div>';
+        $('#containercard').append(card);
+        });
+
+        },
+        error:function(xrh,resp,text){
+        console.log('erro ao buscar cep');
+        }
+        });
+        }
+
+
+
+
+        function cadastrarCard(){
+
+        var descricao = $('#descricao').val();
+        var url_imagem = $('#url_imagem').val();
+        $.ajax({
+        url:'http://andrecosta.info/cards/',
+        type:'POST',
+        dataType:'json',
+        data:"descricao="+descricao+"&url_imagem="+url_imagem,
+
+        success:function(result){ 
+        console.log(result.data);
+
+
+        alert(result.data);
+        location.reload();
+
+        },
+        error:function(xrh,resp,text){
+
+        console.log('erro ao buscar cep');
+        }
+        });
+        }
+
+        function removerCard(idCard){
+        $.ajax({
+        url:'http://andrecosta.info/cards/',
+        type:'DELETE',
+        dataType:'json',
+        data:"id="+idCard,
+        success:function(result){ 
+        alert(result.data);
+        location.reload();
+        },
+        error:function(xrh,resp,text){
+        alert(result.data);
+        }
+        });
+
+        }
+        function like(idCard){
+
+        $.ajax({
+        url:'http://andrecosta.info/cards/like/',
+        type:'POST',
+        dataType:'json',
+        data:"id="+idCard,
+        success:function(result){ 
+        $('#btlike_'+idCard).text("Likes("+result.qtd_likes+")");
+        },
+        error:function(xrh,resp,text){
+        alert(resp.data);
+        }
+        });
+
+
+
+        }
+
+    </script>
+
+
+</html>
